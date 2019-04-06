@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+
+
+
 """Listing of attributes: 
 
 >50K, <=50K. 
@@ -62,5 +65,20 @@ native = np.unique(Adult[:,13])
 for i in range(native.shape[0]):
 	Adult[Adult[:,13] == native[i],13] = i
 	
+y  = Adult[:,Adult.shape[1]-1]
+index = Adult.shape[0]*.7 
+Xtr = Adult[:index,:]
+Xte = Adult[index:,:]
+Ytr = y[:index]
+Yte = y[index:]
+
+from sklearn import linear_model
+r=linear_model.LogisticRegression()
+ytr=np.ravel(ytr)
+r.fit(Xtr,ytr)
+yte=np.ravel(yte)
+y_hat=r.predict(Xtr)
+print('Home made learner:')
+print('   Taxa de acerto (treino):', np.mean(y_hat==ytr))	
 
 	
